@@ -14,6 +14,20 @@ extension String {
 //        return LocalizeHelper.shared.localizedString(forKey:self)
 //    }
     
+    func dateChangeformat(strTo:String,strFrom:String)-> String{
+        if self.isEmpty {
+            return ""
+        }else{
+            let dateFormater = DateFormatter()
+            dateFormater.dateFormat = strTo
+            if let aDate = dateFormater.date(from: self) as? Date{
+                dateFormater.dateFormat = strFrom
+                return dateFormater.string(from: aDate)
+            }else{
+                return ""
+            }
+        }        
+    }
     
     func isValidStringForCharSet(_ string: String, charSet: CharacterSet) -> String {
         var strResult: String = ""
