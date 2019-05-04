@@ -8,6 +8,34 @@
 import UIKit
 import Foundation
 
+// PROJECT SPECIFIC REQUIREMENT 
+
+extension String {
+    
+    var MeterUnit : String{
+        if self != "" {
+            if let number = Int(self) {
+                return "\(number.format()!) M"
+            }else if let real = Double(self){
+              return "\(real.format()!) M"
+            }else{
+              return self + " M"
+            }
+        }
+        return self
+    }
+    
+    var amount : String {
+        if self != "" {
+            if let number = Int(self) {
+                return "\(number.format()!)"
+            }else if let real = Double(self){
+                return "\(real.format()!))"
+            }
+        }
+        return self
+    }
+}
 extension String {
 
 //    var localize : String {
