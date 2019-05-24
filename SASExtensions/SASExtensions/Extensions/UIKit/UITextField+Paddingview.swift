@@ -9,6 +9,13 @@ import UIKit
 
 extension UITextField {
     
+    /**
+     @brief This is Done button in keyboard toolbar
+     @param no need paramer
+     `````
+     @remark This is super easy methods
+     
+     */
     func addDoneButtonOnKeyboard()
     {
         let doneToolbar: UIToolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
@@ -30,62 +37,12 @@ extension UITextField {
     }
     
     /**
-     @brief This is normal padding methods
-     @param no need paramer (it's contain default parameter )
-     * UITextField = textfield which you want to set left padding
-     * padding = 0.5
-     `````
-     txtEmail.paddingview(txtEmail)
-     `````
+     @brief This is DrawTextUnderline
+     @param no need paramer (_ lineHeight:CGFloat, lineColor:UIColor, lineWidth: CGFloat)
      @remark This is super easy methods
      
      */
-    func paddingview(_ txtfield:UITextField)-> UITextField{
-        let l3 = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: txtfield.frame.height))
-        txtfield.leftView = l3
-        txtfield.leftViewMode = UITextField.ViewMode.always
-        return txtfield
-    }
     
-    /**
-     @brief This is large padding methods
-     @param no need paramer (it's contain default parameter )
-     * UITextField = textfield which you want to set left padding
-     * padding = 40
-     `````
-     txtEmail.paddingviewLarge(txtEmail)
-     `````
-     @remark This is super easy methods
-     
-     */
-    func paddingviewLarge(_ txtfield:UITextField)-> UITextField{
-        let l3 = UIView(frame: CGRect(x: 0, y: 0,width: 40, height: txtfield.frame.height))
-        txtfield.leftView = l3
-        txtfield.leftViewMode = UITextField.ViewMode.always
-        return txtfield
-    }
-    func paddingviewRight(_ txtfield:UITextField)-> UITextField{
-        let l3 = UIView(frame: CGRect(x: 0, y: 0,width: 40, height: txtfield.frame.height))
-        txtfield.rightView = l3
-        txtfield.rightViewMode = UITextField.ViewMode.always
-        return txtfield
-    }
-    func paddingviewMedium(_ txtfield:UITextField)-> UITextField{
-        let l3 = UIView(frame: CGRect(x: 0, y: 0,width: 20, height: txtfield.frame.height))
-        txtfield.leftView = l3
-        txtfield.leftViewMode = UITextField.ViewMode.always
-        return txtfield
-    }
-    func paddingviewWithCustomValue(_ value:CGFloat,txtfield:UITextField){
-        let l3 = UIView(frame: CGRect(x: 0, y: 0,width: value, height: txtfield.frame.height))
-        txtfield.leftView = l3
-        txtfield.leftViewMode = UITextField.ViewMode.always
-    }
-    func paddingviewRightWithCustomValue(_ value:CGFloat,txtfield:UITextField){
-        let l3 = UIView(frame: CGRect(x: 0, y: 0,width: value, height: txtfield.frame.height))
-        txtfield.rightView = l3
-        txtfield.rightViewMode = UITextField.ViewMode.always
-    }
     func DrawTextUnderline(_ lineHeight:CGFloat, lineColor:UIColor, lineWidth: CGFloat) {
         let border = CALayer()
         border.borderColor = lineColor.cgColor
@@ -103,7 +60,7 @@ extension UITextField {
         self.layer.addSublayer(border)
         self.layer.masksToBounds = true
     }
-    
+
     /*@IBInspectable var placeHolderColor: UIColor? {
         get {
             return self.placeHolderColor
@@ -127,3 +84,39 @@ extension UITextField {
     }
 }
 
+extension UITextField {
+    
+    enum PaddingSide {
+        case left(CGFloat)
+        case right(CGFloat)
+        case both(CGFloat)
+    }
+    
+    func addPadding(_ padding: PaddingSide) {
+        
+        self.leftViewMode = .always
+        self.layer.masksToBounds = true
+        
+        switch padding {
+            
+        case .left(let spacing):
+            let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: spacing, height: self.frame.height))
+            self.leftView = paddingView
+            self.rightViewMode = .always
+            
+        case .right(let spacing):
+            let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: spacing, height: self.frame.height))
+            self.rightView = paddingView
+            self.rightViewMode = .always
+            
+        case .both(let spacing):
+            let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: spacing, height: self.frame.height))
+            // left
+            self.leftView = paddingView
+            self.leftViewMode = .always
+            // right
+            self.rightView = paddingView
+            self.rightViewMode = .always
+        }
+    }
+}
