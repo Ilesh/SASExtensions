@@ -7,6 +7,45 @@
 
 import UIKit
 
+/// Add Line of view.
+///
+extension UIView {
+    // MARK: - enums
+    
+    /// a view line position.
+    ///
+    /// - top: view top line position.
+    /// - bottom : view bottom line position.
+    enum Line_Position {
+        case top
+        case bottom
+    }
+    
+    /// line adding methods
+    ///
+    /// - position: enum type of line position.
+    /// - color: set color of the line
+    /// - height: height of the line.
+    func addLine(position : Line_Position, color: UIColor, height: Double) {
+        let lineView = UIView()
+        lineView.backgroundColor = color
+        lineView.translatesAutoresizingMaskIntoConstraints = false // This is important!
+        self.addSubview(lineView)
+        
+        let metrics = ["width" : NSNumber(value: height)]
+        let views = ["lineView" : lineView]
+        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[lineView]|", options:NSLayoutConstraint.FormatOptions(rawValue: 0), metrics:metrics, views:views))
+        
+        switch position {
+        case .top:
+            self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[lineView(width)]", options:NSLayoutConstraint.FormatOptions(rawValue: 0), metrics:metrics, views:views))
+            break
+        case .bottom:
+            self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[lineView(width)]|", options:NSLayoutConstraint.FormatOptions(rawValue: 0), metrics:metrics, views:views))
+            break
+        }
+    }
+}
 extension UIView {
     func addTopBorderWithColor(color: UIColor, width: CGFloat) {
         let border = CALayer()
