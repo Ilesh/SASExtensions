@@ -14,10 +14,17 @@ extension UIViewController {
     ///
     ///
     /// - strUrl : string wen url with http or without http.
-    func openUrl(strUrl:String){
-        if strUrl == "" {
+    func openUrl(strWebUrl:String){
+        if strWebUrl == "" {
             return
         }
+        var strUrl = ""
+        if strWebUrl.contain(",") {
+          strUrl = strWebUrl.components(separatedBy: ",").first!
+        }else{
+          strUrl = strWebUrl
+        }
+        strUrl = strUrl.trimmingCharacters(in: .whitespacesAndNewlines)
         if strUrl.hasPrefix("http"){
             if let url = URL(string: strUrl){
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
