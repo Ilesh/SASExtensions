@@ -9,7 +9,6 @@
 import Foundation
 
 extension UIViewController {
-    
     /// OPEN LINK IN THE SAFARI
     ///
     ///
