@@ -56,5 +56,16 @@ extension UIViewController {
             }
         }
     }
+    /// OPEN LINK IN THE SAFARI
+    ///
+    ///
+    /// isModel Return Bool value when controller is visible using model.
+    var isModal: Bool {
+        
+        let presentingIsModal = presentingViewController != nil
+        let presentingIsNavigation = navigationController?.presentingViewController?.presentedViewController == navigationController
+        let presentingIsTabBar = tabBarController?.presentingViewController is UITabBarController
+        return presentingIsModal || presentingIsNavigation || presentingIsTabBar
+    }
 }
 
