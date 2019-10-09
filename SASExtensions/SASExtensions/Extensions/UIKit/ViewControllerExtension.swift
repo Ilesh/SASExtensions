@@ -9,6 +9,32 @@
 import Foundation
 
 extension UIViewController {
+    private struct activityAlert {
+        static var activityIndicatorAlert: UIAlertController?
+    }
+    //completion : ((Int, String) -> Void)?)
+    func displayIPActivityAlert(_ onCancel : (()-> Void)?) {
+        activityAlert.activityIndicatorAlert = UIAlertController(title: NSLocalizedString("Loading...", comment: ""), message: nil , preferredStyle: UIAlertController.Style.alert)
+        activityAlert.activityIndicatorAlert!.addActivityIndicator()
+        var topController:UIViewController = UIApplication.shared.keyWindow!.rootViewController!
+        while ((topController.presentedViewController) != nil) {
+            topController = topController.presentedViewController!
+        }
+        
+        activityAlert.activityIndicatorAlert!.addAction(UIAlertAction.init(title:NSLocalizedString("Cancel", comment: ""), style: .default, handler: { (UIAlertAction) in
+                self.dismissIPActivityAlert()
+                onCancel?()
+        }))
+        topController.present(activityAlert.activityIndicatorAlert!, animated:true, completion:nil)
+    }
+    
+    func dismissIPActivityAlert() {
+        activityAlert.activityIndicatorAlert!.dismissActivityIndicator()
+        activityAlert.activityIndicatorAlert = nil
+    }
+}
+
+extension UIViewController {
     /// OPEN LINK IN THE SAFARI
     ///
     ///
