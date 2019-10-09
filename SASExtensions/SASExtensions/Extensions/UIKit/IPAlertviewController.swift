@@ -8,6 +8,33 @@
 import Foundation
 import UIKit
 
+/**
+ Display activityIndicator alerts
+ 
+ - parameter CompletionBlock : Callback of cancel button url.
+ 
+ */
+extension UIAlertController {
+    
+    private struct ActivityIndicatorData {
+        static var activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+    }
+    
+    func addActivityIndicator() {
+        let vc = UIViewController()
+        vc.preferredContentSize = CGSize(width: 50,height: 50)
+        ActivityIndicatorData.activityIndicator.style = .whiteLarge
+        ActivityIndicatorData.activityIndicator.color = UIColor.red
+        ActivityIndicatorData.activityIndicator.startAnimating()
+        vc.view.addSubview(ActivityIndicatorData.activityIndicator)
+        self.setValue(vc, forKey: "contentViewController")
+    }
+    
+    func dismissActivityIndicator() {
+        ActivityIndicatorData.activityIndicator.stopAnimating()
+        self.dismiss(animated: false)
+    }
+}
 extension UIAlertController
 {
    
