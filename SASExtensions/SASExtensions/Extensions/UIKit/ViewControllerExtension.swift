@@ -82,6 +82,23 @@ extension UIViewController {
             }
         }
     }
+    
+    /// SHARE STRING URL FROM ANY CONTROLLER.
+    ///
+    ///
+    /// - strUrl  : string URL which you want to share.
+    
+    func shareURL(strUrl:String,strTitle:String = ""){
+        if let url =  URL(string:strUrl) {
+            let items = [url,strTitle] as [Any]
+            let ac = UIActivityViewController(activityItems: items, applicationActivities: nil)
+            present(ac, animated: true)
+        }else{
+            print("URL not valid..")
+        }
+    }
+    
+    
     /// OPEN LINK IN THE SAFARI
     ///
     ///
